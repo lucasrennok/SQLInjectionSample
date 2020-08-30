@@ -62,7 +62,7 @@ function LoginPage() {
                             <div className="buttonBox">
                                 {loginCorrect? <Redirect to={{pathname:"/admin", state:{success: loginCorrect}}} /> : <div></div>}
                                 <input type='submit' value="Access"/>
-                                <button onClick={handleForgotPass}>Forgot the pass?</button>
+                                <button onClick={handleForgotPass}>Forgot the password?</button>
                             </div>
                         </fieldset>
                     </form>

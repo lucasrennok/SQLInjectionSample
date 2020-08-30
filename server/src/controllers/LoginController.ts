@@ -10,13 +10,18 @@ export default class LoginController{
         const password = query.password as string;
         
         // WITHOUT SQL INJECTION
-        // const connectionAccepted = await db('login')
+        // let connectionAccepted = await db('login')
         //     .where('login.username','=', username)
         //     .where('login.password', '=', password);
 
         // WITH SQL INJECTION
         const selectSearch = `select * from login where username = ${username} and password = ${password}`
-        const connectionAccepted = await db.raw(selectSearch);
+        let connectionAccepted = []
+        try{
+            connectionAccepted = await db.raw(selectSearch);
+        }catch(er){
+            connectionAccepted = []
+        }
 
         if(connectionAccepted[0]==undefined){
             console.log('failed');

@@ -1,22 +1,32 @@
-import React, { useState } from 'react';
+import React, { useState, FormEvent } from 'react';
 import PageFooter from '../../components/PageFooter/PageFooter';
 import PageHeader from '../../components/PageHeader/PageHeader';
 
 import backgroundImg from '../../assets/images/backgroundLogin.jpg'
 import './styles.css'
-import { Link, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
+import api from '../../services/api';
 
 function LoginPage() {
-
-    const [loginCorrect, setLoginCorret] = useState(false);
+    const [username, setUsername] = useState('')
+    const [password, setPassword] = useState('')
+    const [loginCorrect, setLoginCorrect] = useState(false);
+    const [wrongPassText, setWrongPassText] = useState(0);
 
     function handleForgotPass(){
         alert('Sorry, we can\'t help. Talk with the administrator or try to access the next page without the username and password corrects. :)');
     }
 
-    function handleIsLoginCorrect(){
-        //Buscar dados do banco aqui
-        setLoginCorret(false);
+    function handleIsLoginCorrect(e: FormEvent){
+        e.preventDefault();
+
+        api.get('?username='+encodeURIComponent(username)+'&password='+encodeURIComponent(password)).then(response => {
+            const {success} = response.data;
+            setLoginCorrect(success);
+            if(success===0){
+                setWrongPassText(wrongPassText+1);
+            }
+        })
     }
 
     return (
@@ -32,12 +42,12 @@ function LoginPage() {
 
                         <div className="inputBox">
                             <label>Username</label>
-                            <input type='text'/>
+                            <input type='text' onChange={(e)=>{setUsername(e.target.value)}}/>
                         </div>
 
                         <div className="inputBox">
                             <label>Password</label>
-                            <input type='text'/>
+                            <input type='text' onChange={(e)=>{setPassword(e.target.value)}}/>
                         </div>
 
                         <div className="buttonBox">
@@ -47,6 +57,7 @@ function LoginPage() {
                         </div>
                     </fieldset>
                 </form>
+                    {wrongPassText===0? <p></p>:<p id='wrongPass'>Wrong username or password. Times wrong: {wrongPassText}</p>}
 
             </div>
             <PageFooter />

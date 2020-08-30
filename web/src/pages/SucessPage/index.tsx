@@ -10,7 +10,6 @@ interface SuccessPageProps{
 }
 
 const SuccessPage: React.FC<SuccessPageProps> = ({success}) => {
-  console.log(success)
 
   if(success!==undefined){
     success=success.success;

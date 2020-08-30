@@ -1,15 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PageFooter from '../../components/PageFooter/PageFooter';
 import PageHeader from '../../components/PageHeader/PageHeader';
 
 import backgroundImg from '../../assets/images/backgroundLogin.jpg'
 import './styles.css'
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 function LoginPage() {
 
+    const [loginCorrect, setLoginCorret] = useState(false);
+
     function handleForgotPass(){
         alert('Sorry, we can\'t help. Talk with the administrator or try to access the next page without the username and password corrects. :)');
+    }
+
+    function handleIsLoginCorrect(){
+        //Buscar dados do banco aqui
+        setLoginCorret(false);
     }
 
     return (
@@ -19,7 +26,7 @@ function LoginPage() {
             <div id="content">
                 <img src={backgroundImg} id="backgroundLogin"/>
 
-                <form>
+                <form onSubmit={handleIsLoginCorrect}>
                     <fieldset>
                         <legend>Login</legend>
 
@@ -34,9 +41,8 @@ function LoginPage() {
                         </div>
 
                         <div className="buttonBox">
-                            <Link to="/admin">
-                                <input type='submit' value="Access"/>
-                            </Link>
+                            {loginCorrect? <Redirect to={{pathname:"/admin", state:{success: loginCorrect}}} /> : <div></div>}
+                            <input type='submit' value="Access"/>
                             <button onClick={handleForgotPass}>Forgot the pass?</button>
                         </div>
                     </fieldset>

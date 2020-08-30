@@ -7,7 +7,7 @@ function Routes(){
     return (
         <BrowserRouter>
             <Route path="/" exact component={LoginPage} />
-            <Route path="/admin" component={SuccessPage} />
+            <Route path="/admin" component={(data: any) => <SuccessPage success={data.location.state} />} />
         </BrowserRouter>
     )
 }

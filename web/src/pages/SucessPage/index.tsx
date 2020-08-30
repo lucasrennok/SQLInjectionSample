@@ -6,10 +6,16 @@ import './styles.css'
 import { Link } from 'react-router-dom';
 
 interface SuccessPageProps{
-  success: boolean
+  success: any
 }
 
 const SuccessPage: React.FC<SuccessPageProps> = ({success}) => {
+  console.log(success)
+
+  if(success!==undefined){
+    success=success.success;
+  }
+
   return (
     <div className="page-success">
       <PageHeader />

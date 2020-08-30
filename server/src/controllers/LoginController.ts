@@ -6,12 +6,22 @@ export default class LoginController{
     async index(request: Request, response: Response){
         const query = request.query;
 
-        const username = query.username;
-        const password = query.password;
+        const username = query.username as string;
+        const password = query.password as string;
 
+        console.log(username, password)
+        
+        // SEM PROBLEMA SQL INJECTION
         const connectionAccepted = await db('login')
             .where('login.username','=', username as string)
             .where('login.password', '=', password as string);
+
+        // Para ter uma falha, deve pesquisar diretamente no banco
+        // com os dados já recebidos da query; a pesquisa deve ser Raw
+        
+        // const connectionAccepted = await db('login')
+        //     .whereRaw('`login`.`username` = `lucas`')
+        //     .andWhereRaw('`login`.`password` = `lucas123`')
 
         if(connectionAccepted[0]==undefined){
             console.log('failed');

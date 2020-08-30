@@ -20,13 +20,19 @@ function LoginPage() {
     function handleIsLoginCorrect(e: FormEvent){
         e.preventDefault();
 
-        api.get('?username='+encodeURIComponent(username)+'&password='+encodeURIComponent(password)).then(response => {
-            const {success} = response.data;
-            setLoginCorrect(success);
-            if(success===0){
-                setWrongPassText(wrongPassText+1);
-            }
-        })
+        if(username===''){
+            alert('Nothing at username area.');
+        }else if(password===''){
+            alert('Nothing at password area.');
+        }else{
+            api.get('?username='+encodeURIComponent(username)+'&password='+encodeURIComponent(password)).then(response => {
+                const {success} = response.data;
+                setLoginCorrect(success);
+                if(success===0){
+                    setWrongPassText(wrongPassText+1);
+                }
+            })
+        }
     }
 
     return (
@@ -36,30 +42,32 @@ function LoginPage() {
             <div id="content">
                 <img src={backgroundImg} id="backgroundLogin"/>
 
-                <form onSubmit={handleIsLoginCorrect}>
-                    <fieldset>
-                        <legend>Login</legend>
+                <div id="loginBox">
+                    <form onSubmit={handleIsLoginCorrect}>
+                        <fieldset>
+                            <legend>Login</legend>
 
-                        <div className="inputBox">
-                            <label>Username</label>
-                            <input type='text' onChange={(e)=>{setUsername(e.target.value)}}/>
-                        </div>
+                            <div className="inputBox">
+                                <label>Username</label>
+                                <input type='text' onChange={(e)=>{setUsername(e.target.value)}}/>
+                            </div>
 
-                        <div className="inputBox">
-                            <label>Password</label>
-                            <input type='text' onChange={(e)=>{setPassword(e.target.value)}}/>
-                        </div>
+                            <div className="inputBox">
+                                <label>Password</label>
+                                <input type='text' onChange={(e)=>{setPassword(e.target.value)}}/>
+                            </div>
 
-                        <div className="buttonBox">
-                            {loginCorrect? <Redirect to={{pathname:"/admin", state:{success: loginCorrect}}} /> : <div></div>}
-                            <input type='submit' value="Access"/>
-                            <button onClick={handleForgotPass}>Forgot the pass?</button>
-                        </div>
-                    </fieldset>
-                </form>
+                            <div className="buttonBox">
+                                {loginCorrect? <Redirect to={{pathname:"/admin", state:{success: loginCorrect}}} /> : <div></div>}
+                                <input type='submit' value="Access"/>
+                                <button onClick={handleForgotPass}>Forgot the pass?</button>
+                            </div>
+                        </fieldset>
+                    </form>
                     {wrongPassText===0? <p></p>:<p id='wrongPass'>Wrong username or password. Times wrong: {wrongPassText}</p>}
-
+                </div>
             </div>
+
             <PageFooter />
         </div>
     );

@@ -61,6 +61,20 @@ button:hover{
     opacity: 60%;
 }
 
+#wrongPass{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+#loginBox{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 @media (min-width: 700px){
     #backgroundLogin{
         width: 64%;

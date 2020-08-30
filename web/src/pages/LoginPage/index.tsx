@@ -29,6 +29,8 @@ function LoginPage() {
                 const {success} = response.data;
                 setLoginCorrect(success);
                 if(success===0){
+                    setUsername('');
+                    setPassword('');
                     setWrongPassText(wrongPassText+1);
                 }
             })
@@ -40,7 +42,7 @@ function LoginPage() {
             <PageHeader />
 
             <div id="content">
-                <img src={backgroundImg} id="backgroundLogin"/>
+                <img src={backgroundImg} id="backgroundLogin" alt="girl showing a padlock"/>
 
                 <div id="loginBox">
                     <form onSubmit={handleIsLoginCorrect}>
@@ -49,12 +51,12 @@ function LoginPage() {
 
                             <div className="inputBox">
                                 <label>Username</label>
-                                <input type='text' onChange={(e)=>{setUsername(e.target.value)}}/>
+                                <input type='text' value={username} onChange={(e)=>{setUsername(e.target.value)}}/>
                             </div>
 
                             <div className="inputBox">
                                 <label>Password</label>
-                                <input type='text' onChange={(e)=>{setPassword(e.target.value)}}/>
+                                <input type='password' value={password} onChange={(e)=>{setPassword(e.target.value)}}/>
                             </div>
 
                             <div className="buttonBox">

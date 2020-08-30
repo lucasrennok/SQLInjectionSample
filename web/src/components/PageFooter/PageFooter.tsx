@@ -11,7 +11,7 @@ function PageFooter(){
                 rel="noopener noreferrer"
             >
                 <h2>
-                    <img src={shieldIcon} id="shieldIcon"/>
+                    <img src={shieldIcon} id="shieldIcon" alt="shield icon"/>
                     lucasrennok
                 </h2>
             </a>

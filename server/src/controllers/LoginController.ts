@@ -15,7 +15,7 @@ export default class LoginController{
         //     .where('login.password', '=', password);
 
         // WITH SQL INJECTION
-        const selectSearch = `select * from login where username = ${username} and password = ${password}`
+        const selectSearch = `select * from login where username = '${username}' and password = '${password}'`
         let connectionAccepted = []
         try{
             connectionAccepted = await db.raw(selectSearch);

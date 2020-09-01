@@ -75,7 +75,7 @@ The API host is 'localhost:3333', note that the post method is disabled and the 
 > }
 
 ## :unlock: Where is the problem?
-Specifically, the problem is in LoginController class at 'server/src/controllers/LoginController.ts'. Get method starts the 'index' function in that class, and this function is just reading the query and putting the data from it at a string that will select something at 'login' table with the username and password which are on the input. If you want to eliminate SQL Injection attacks from the site, just change this file LoginController.ts at this rows:
+Specifically, the problem is in LoginController class at 'server/src/controllers/LoginController.ts'. Get method starts the 'index' function in that class, and this function is just reading the query and putting the data from it at a string that will select something at 'login' table with the username and password which are on the input. If you want to eliminate SQL Injection attacks from the site, just change this file LoginController.ts at these rows:
 
 ![changes](/readme_imgs/changeIt.PNG)
 
